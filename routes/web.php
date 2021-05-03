@@ -27,7 +27,16 @@ Route::group(['middleware' => ['role_check', 'auth']], function () {
     Route::put('/profile', 'ProfileController@update')->name('profile.update');
 });
 Route::group(['middleware' => ['auth']], function () {
+    Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
+
+    // Order routes
+    Route::group(['prefix' => 'orders'], function () {
+        Route::get('/', 'OrderController@index')->name('list.orders');
+        Route::get('/create', 'OrderController@create')->name('create.order');
+        Route::post('/store', 'OrderController@store')->name('store.order');
+        Route::get('/{id}/destroy', 'OrderController@destroy')->name('destroy.order');
+    });
 });
 
 

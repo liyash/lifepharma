@@ -62,6 +62,18 @@
                 <span>{{ __('Profile') }}</span>
             </a>
         </li>        
+        <li class="nav-item ">
+            <a class="nav-link" href="/users">
+                <i class="fas fa-fw fa-user"></i>
+                <span>{{ __('Users') }}</span>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="/users">
+                <i class="fas fa-fw fa-user"></i>
+                <span>{{ __('Users') }}</span>
+            </a>
+        </li>
         <li class="nav-item {{ Nav::isRoute('products') }}">
             <a class="nav-link" href="/products">
                 <i class="fas fa-fw fa-user"></i>
