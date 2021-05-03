@@ -21,7 +21,7 @@ class AddAdminUser extends Seeder
             "name" => "Administrator",
             'username' => "sadmin",
             'email' => "admin@lifepharma.ae",
-            'password' => \Hash::make('password')
+            'password' => "password"
 
         ]);
     }
