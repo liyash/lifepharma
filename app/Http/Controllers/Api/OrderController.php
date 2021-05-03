@@ -11,6 +11,117 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
 
+    public function listOrders(Request $request)
+    {
+        $orders = Order::where(["status" => 1, "created_by" => \Auth::user()->id])->get();
+        $orderData = [];
+        foreach ($orders as $order) {
+            $orderDetails = [];
+            foreach ($order->orderdetails as $orderDet) {
+                $orderDetails[] = [
+                    "id" => $orderDet->id,
+
+                    "product" => $orderDet->product->name,
+                    "count" => $orderDet->count,
+                    "price" => $orderDet->product->price * $orderDet->count
+                ];
+            }
+            $orderData[] = [
+                "id" => $order->id,
+                "user" => $order->user,
+                "orderdetails" => $orderDetails
+
+            ];
+        }
+        $returnData = [
+            "status_code" => 200,
+            "data" => $orderData,
+            "message" => "Retrieved Successfully"
+        ];
+        return response()->json($returnData);
+    }
+
+    public function listOrderByID(Request $request)
+    {
+        $order = Order::find($request->id);
+        $orderData = [];
+        $orderDetails = [];
+        foreach ($order->orderdetails as $orderDet) {
+            $orderDetails[] = [
+                "id" => $orderDet->id,
+
+                "product" => $orderDet->product->name,
+                "count" => $orderDet->count,
+                "price" => $orderDet->product->price * $orderDet->count
+            ];
+        }
+
+        $transactionDetails = [];
+        foreach ($order->transactiondetails as $orderDet) {
+            $transactionDetails[] = [
+                "id" => $orderDet->id,
+                "transaction_id" => $orderDet->transaction_id,
+                "card_details" => $orderDet->card_details,
+                "status" => $orderDet->status == 1 ? "completed" : "Not Completed"
+            ];
+        }
+        $orderData[] = [
+            "id" => $order->id,
+            "user" => $order->user,
+            "orderdetails" => $orderDetails,
+            "transaction_details" => $transactionDetails
+
+        ];
+        $returnData = [
+            "status_code" => 200,
+            "data" => $orderData,
+            "message" => "Retrieved Successfully"
+        ];
+        return response()->json($returnData);
+    }
+
+    public function deleteOrderByID(Request $request)
+    {
+        $order = Order::find($request->id);
+        $orderData = [];
+        $orderDetails = [];
+        foreach ($order->orderdetails as $orderDet) {
+            $orderDetails[] = [
+                "id" => $orderDet->id,
+
+                "product" => $orderDet->product->name,
+                "count" => $orderDet->count,
+                "price" => $orderDet->product->price * $orderDet->count
+            ];
+        }
+
+        $transactionDetails = [];
+        foreach ($order->transactiondetails as $orderDet) {
+            $transactionDetails[] = [
+                "id" => $orderDet->id,
+                "transaction_id" => $orderDet->transaction_id,
+                "card_details" => $orderDet->card_details,
+                "status" => $orderDet->status == 1 ? "completed" : "Not Completed"
+            ];
+        }
+        $orderDelete = Order::find($request->id)->delete();
+
+        $orderData[] = [
+            "id" => $order->id,
+            "user" => $order->user,
+            "orderdetails" => $orderDetails,
+            "transaction_details" => $transactionDetails,
+            "message" => $orderDelete ? "Removed" : "Not Removed"
+
+        ];
+        $returnData = [
+            "status_code" => 200,
+            "data" => $orderData,
+            "message" => "Retrieved Successfully"
+        ];
+        return response()->json($returnData);
+    }
+
     public function addToCart(Request $request)
     {
         $productId = $request->product_id;
