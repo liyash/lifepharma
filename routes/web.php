@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +26,11 @@ Route::group(['middleware' => ['role_check', 'auth']], function () {
     Route::get('/profile', 'ProfileController@index')->name('profile');
     Route::put('/profile', 'ProfileController@update')->name('profile.update');
 });
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('products', ProductController::class);
+});
+
+
 
 
 Route::get('/about', function () {
