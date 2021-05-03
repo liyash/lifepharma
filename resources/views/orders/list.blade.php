@@ -1,13 +1,8 @@
-@extends('templates.template')
-@section('content')
+@extends('layouts.admin')
+@section('main-content')
 
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">Todos Pedidos</h1>
-        </div>
-    </section>
 
-    <div class="container">
+
 
         <table class="table table-dark">
             <thead>
@@ -34,5 +29,4 @@
             </tbody>
         </table>
 
-    </div>
 @endsection

@@ -1,11 +1,7 @@
-@extends('templates.template')
+@extends('layouts.admin')
 
-@section('content')
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">Novo Pedido</h1>
-        </div>
-    </section>
+@section('main-content')
+
 
     <div class="container">
         <h2>Selecione os Produtos</h2>

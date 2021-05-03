@@ -69,9 +69,9 @@
             </a>
         </li>
         <li class="nav-item ">
-            <a class="nav-link" href="/users">
+            <a class="nav-link" href="/orders">
                 <i class="fas fa-fw fa-user"></i>
-                <span>{{ __('Users') }}</span>
+                <span>{{ __('Orders') }}</span>
             </a>
         </li>
         <li class="nav-item {{ Nav::isRoute('products') }}">
