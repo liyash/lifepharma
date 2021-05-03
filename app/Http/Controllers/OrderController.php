@@ -17,7 +17,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::where(["status" => 1, "processed" => 0])->get();
         return view('orders.list', compact('orders'));
     }
 
@@ -48,6 +48,7 @@ class OrderController extends Controller
     }
 
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -62,5 +63,36 @@ class OrderController extends Controller
         $order->delete();
 
         return redirect()->route('list.orders');
+    }
+
+    public function view(Request $request)
+    {
+        $orders = Order::find($request->id);
+        $orderCostArray = ($orders->orderdetails->pluck("product.price"));
+        $orderCost = 0;
+        foreach ($orderCostArray as $key => $value) {
+            $orderCost = $orderCost + $value;
+        }
+        return view('orders.show', compact('orders', "orderCost"));
+    }
+
+    public function processOrder(Request $request)
+    {
+        $order = Order::find($request->id)->update(['processed' => 1]);
+
+        if ($order) {
+            $returnData = [
+                "status_code" => 200,
+                "data" => [],
+                "message" => "Processed Successfully"
+            ];
+        } else {
+            $returnData = [
+                "status_code" => 401,
+                "data" => [],
+                "message" => "Not Processed "
+            ];
+        }
+        return response()->json($returnData);
     }
 }

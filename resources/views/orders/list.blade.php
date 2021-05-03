@@ -1,15 +1,10 @@
 @extends('layouts.admin')
 @section('main-content')
-
-
-
-
-        <table class="table table-dark">
+        <table class="table table-bordered" id="orderTable">
             <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Data</th>
-                <th scope="col">Items</th>
+                <th scope="col">Raised By</th>
                 <th scope="col">Total</th>
                 <th scope="col">Action</th>
             </tr>
@@ -18,11 +13,13 @@
                 @foreach($orders as $order)
                     <tr>
                         <td>{{$order->id}}</td>
-                        <td>{{$order->created_at}}</td>
-                        <td>{{$order->items}}</td>
-                        <td>{{$order->total}}</td>
+                        <td>{{$order->user->name}}</td>
                         <td>
-                            <a href="{{"/orders/{$order->id}/destroy"}}">Delete</a>
+                            {{$order->orderdetails->count()}} Item
+                        </td>
+                        <td>
+                            <a class="btn btn-info" href="{{"/orders/view/{$order->id}/"}}">Show</a>
+    
                         </td>
                     </tr>
                 @endforeach
@@ -30,3 +27,11 @@
         </table>
 
 @endsection
+@section('scripts')
+<script>
+    $(document).ready(function () {
+        $("#orderTable").dataTable()
+    });
+</script>
+@endsection
+

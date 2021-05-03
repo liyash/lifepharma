@@ -17,14 +17,18 @@
         </div>
     @endif
 <div class="row">
-    <table class="table table-bordered">
-        <tr>
+    <div class="col-md-12">
+           <table id="productstable" class="table table-bordered">
+        <thead>
+            <tr>
             <th>No</th>
             <th>Name</th>
             <th>Price</th>
             <th>Details</th>
             <th width="280px">Action</th>
         </tr>
+        </thead>
+        
         @foreach ($products as $product)
         <tr>
             <td>{{ $loop->iteration }}</td>
@@ -47,7 +51,16 @@
         </tr>
         @endforeach
     </table>
+    </div>
+ 
     </div>    
   
       
+@endsection
+@section('scripts')
+<script>
+    $(document).ready(function () {
+        $("#productstable").dataTable()
+    });
+</script>
 @endsection

@@ -17,14 +17,18 @@
         </div>
     @endif
 <div class="row">
-    <table class="table table-bordered">
-        <tr>
+    <div class="col-md-12">
+            <table id="usertable" class="table table-bordered">
+        <thead>
+                    <tr>
             <th>No</th>
             <th>Name</th>
             <th>User name</th>
             <th>Email</th>
             <th width="280px">Action</th>
         </tr>
+        </thead>
+
         @foreach ($users as $user)
         <tr>
             <td>{{ $loop->iteration }}</td>
@@ -51,7 +55,16 @@
         </tr>
         @endforeach
     </table>
+    </div>
+
     </div>    
   
       
+@endsection
+@section('scripts')
+<script>
+    $(document).ready(function () {
+        $("#usertable").dataTable()
+    });
+</script>
 @endsection

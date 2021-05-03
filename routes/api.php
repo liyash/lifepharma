@@ -15,7 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', 'Api\AuthController@login');
-
+Route::group(['middleware' => ["auth:api"]], function () {
+    //
+    Route::get('listProducts', "Api\ProductController@listProducts");
+    Route::post('addtocart', "Api\OrderController@addToCart");
+    Route::post('associateordertransaction', "Api\OrderController@associateOrdertransaction");
+});
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
