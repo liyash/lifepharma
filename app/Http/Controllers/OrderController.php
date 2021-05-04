@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderTransaction;
 use Illuminate\Http\Request;
 use App\Order;
 use App\User;
 use App\Product;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Jobs\SendTransactionEmail;
 
 class OrderController extends Controller
 {
@@ -81,6 +83,9 @@ class OrderController extends Controller
         $order = Order::find($request->id)->update(['processed' => 1]);
 
         if ($order) {
+            $orderConfirm = Order::find($request->id);
+            $details = ['email' => $orderConfirm->user->email];
+            SendTransactionEmail::dispatch($details);
             $returnData = [
                 "status_code" => 200,
                 "data" => [],

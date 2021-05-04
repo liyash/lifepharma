@@ -205,8 +205,8 @@ class OrderController extends Controller
                     "data" => [],
                     "message" => "Transaction completed"
                 ];
-                $details = ['email' => $request->email];
-                SendOrderEmail::dispatch(\Auth::user()->email);
+                $details = ['email' => \Auth::user()->email];
+                SendOrderEmail::dispatch($details);
             }
         } else {
             SalesTransaction::create([
