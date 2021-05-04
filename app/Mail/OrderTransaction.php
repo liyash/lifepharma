@@ -29,7 +29,7 @@ class OrderTransaction extends Mailable
     public function build()
     {
         return $this->from(env("MAIL_FROM_ADDRESS"), 'test Mail')
-            ->subject('Order processed')
+            ->subject('Transaction processed')
             ->view('mails.ordertransaction');
     }
 }

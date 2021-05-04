@@ -60,7 +60,12 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $("#productstable").dataTable()
+        $("#productstable").DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    })
     });
 </script>
 @endsection

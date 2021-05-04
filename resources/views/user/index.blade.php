@@ -64,7 +64,12 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $("#usertable").dataTable()
+        $("#usertable").DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    })
     });
 </script>
 @endsection

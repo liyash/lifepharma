@@ -30,7 +30,12 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $("#orderTable").dataTable()
+        $("#orderTable").DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    })
     });
 </script>
 @endsection
