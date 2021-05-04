@@ -5,3 +5,5 @@
 # Run Seeder 
     php artisan db:seed --class="CreateRoleSeeder"
     php artisan db:seed --class="AddAdminUser"
+
+    php artisan passport:install
