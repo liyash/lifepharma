@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Jobs\SendRegistationEmail;
 
 class UserController extends Controller
 {
@@ -62,7 +63,12 @@ class UserController extends Controller
             'email' => 'required|unique:users',
             'password' => 'required'
         ]);
-        User::create($request->all());
+        $createUser = User::create($request->all());
+        $details = ['email' => $request->email];
+        if ($createUser) {
+            SendRegistationEmail::dispatch($details);
+        }
+
         return redirect()->route('users.index')
             ->with('success', 'User created successfully.');
     }

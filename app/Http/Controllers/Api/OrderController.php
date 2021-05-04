@@ -7,6 +7,7 @@ use App\Order;
 use App\OrderDetail;
 use App\SalesTransaction;
 use Illuminate\Http\Request;
+use App\Jobs\SendOrderEmail;
 
 class OrderController extends Controller
 {
@@ -204,6 +205,8 @@ class OrderController extends Controller
                     "data" => [],
                     "message" => "Transaction completed"
                 ];
+                $details = ['email' => $request->email];
+                SendOrderEmail::dispatch(\Auth::user()->email);
             }
         } else {
             SalesTransaction::create([
