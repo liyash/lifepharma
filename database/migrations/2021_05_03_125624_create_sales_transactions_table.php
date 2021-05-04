@@ -19,6 +19,7 @@ class CreateSalesTransactionsTable extends Migration
             $table->string("transaction_id");
             $table->string("card_details");
             $table->boolean("status")->default(0);
+            $table->unsignedBigInteger("created_by");
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('cart_id')->references('id')->on('orders');

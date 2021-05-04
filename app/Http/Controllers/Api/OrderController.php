@@ -193,7 +193,8 @@ class OrderController extends Controller
                 "cart_id" => $order_id,
                 "transaction_id" => $transaction_id . "-" . $order_id,
                 "card_details" => $card_details,
-                "status" => $status
+                "status" => $status,
+                "created_by" => \Auth::user()->id
             ]);
             if ($transactionComplete) {
                 $cartCollection->status = 1;
@@ -209,7 +210,8 @@ class OrderController extends Controller
                 "cart_id" => $order_id,
                 "transaction_id" => $transaction_id,
                 "card_details" => $card_details,
-                "status" => $status
+                "status" => $status,
+                "created_by" => \Auth::user()->id
             ]);
             $returnArray = [
                 "status_code" => 401,
